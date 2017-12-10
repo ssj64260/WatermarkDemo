@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:text="请输入当前地址"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_14" />
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_bg_edittext"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_12" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_FCFCFC"
+        android:gravity="center_vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="最多上传9张图片"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_14" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_picture_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/color_FCFCFC"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_D1D1D1"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16" />
+
+</LinearLayout>

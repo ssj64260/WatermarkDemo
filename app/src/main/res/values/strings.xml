@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">WaterMarkDemo</string>
+
+    <!--Permission-->
+    <string name="text_contacts_permission_message">在设置-应用-%1$s-权限中开启通讯录权限，以正常使用获取联系人信息功能</string>
+    <string name="text_call_permission_message">在设置-应用-%1$s-权限中开启电话权限，以正常使用该功能</string>
+    <string name="text_calendar_permission_message">在设置-应用-%1$s-权限中开启日历权限，以正常使用该功能</string>
+    <string name="text_camera_permission_message">在设置-应用-%1$s-权限中开启相机权限，以正常使用该功能</string>
+    <string name="text_location_permission_message">在设置-应用-%1$s-权限中开启位置信息权限，以正常使用该功能</string>
+    <string name="text_storage_permission_message">在设置-应用-%1$s-权限中开启存储权限，以正常使用该功能</string>
+    <string name="text_audio_permission_message">在设置-应用-%1$s-权限中开启麦克风权限，以正常使用该功能</string>
+    <string name="text_sms_permission_message">在设置-应用-%1$s-权限中开启短信权限，以正常使用该功能</string>
+    <string name="text_sensors_permission_message">在设置-应用-%1$s-权限中开启身体传感器权限，以正常使用该功能</string>
+
+    <!--DefaultProgressDialog-->
+    <string name="text_progress_logining">登录中&#8230;</string>
+    <string name="text_progress_loading">加载中&#8230;</string>
+    <string name="text_progress_committing">提交中&#8230;</string>
+    <string name="text_progress_requesting">请求中&#8230;</string>
+    <string name="text_progress_uploading">上传中&#8230;</string>
+    <string name="text_progress_checking_update">正在检查更新&#8230;</string>
+
+
+</resources>

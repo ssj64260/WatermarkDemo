@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_create"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="新增考勤记录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16" />
+
+    <TextView
+        android:id="@+id/tv_attendance_list"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="考勤记录列表"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16" />
+
+    <TextView
+        android:id="@+id/tv_cache"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16"
+        tools:text="清除缓存" />
+
+    <TextView
+        android:id="@+id/tv_delete_db"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="清空数据库"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16" />
+
+</LinearLayout>
