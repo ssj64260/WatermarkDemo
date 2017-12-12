@@ -1,20 +1,18 @@
 package com.android.watermarkdemo.ui.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.watermarkdemo.R;
-import com.android.watermarkdemo.app.APP;
 import com.android.watermarkdemo.app.BaseActivity;
 import com.android.watermarkdemo.config.Constants;
 import com.android.watermarkdemo.utils.DateTimeUtils;
@@ -114,14 +112,7 @@ public class TakePhotoActivity extends BaseActivity {
     }
 
     private void doTakePhoto() {
-        final Uri uri;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            uri = Uri.fromFile(mTempFile);
-        } else {
-            ContentValues contentValues = new ContentValues(1);
-            contentValues.put(MediaStore.Images.Media.DATA, mTempFile.getAbsolutePath());
-            uri = APP.getInstance().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        }
+        final Uri uri = FileProvider.getUriForFile(this, "com.android.watermarkdemo.myprovider", mTempFile);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
