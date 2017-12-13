@@ -36,7 +36,14 @@ public class ImageUtils {
             final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options).copy(Bitmap.Config.ARGB_8888, true);
             if (bitmap != null) {
                 final int angle = ImageUtils.readPictureDegree(filePath);
-                final Bitmap newBitmap = ImageUtils.rotaingImageView(angle, bitmap);
+                final Bitmap newBitmap;
+                if (angle != 0) {
+                    newBitmap = ImageUtils.rotaingImageView(angle, bitmap);
+                    bitmap.recycle();
+                } else {
+                    newBitmap = bitmap;
+                }
+
                 final int bitmapWidth = newBitmap.getWidth();
                 final int bitmapHeight = newBitmap.getHeight();
                 final int backgroundHeight = (int) (Math.min(bitmapWidth, bitmapHeight) * 0.15f);
@@ -85,7 +92,6 @@ public class ImageUtils {
                 final File newFile = ImageUtils.saveBitmapToJpg(newBitmap, savePath, imageName, quality);
 
                 newBitmap.recycle();
-                bitmap.recycle();
 
                 return newFile;
             }
@@ -128,8 +134,7 @@ public class ImageUtils {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         // 创建新的图片
-        return Bitmap.createBitmap(bitmap, 0, 0,
-                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     //把Bitmap转换成jpg图片

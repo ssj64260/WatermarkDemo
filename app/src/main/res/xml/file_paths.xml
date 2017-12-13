@@ -2,16 +2,29 @@
 <resources>
     <paths>
         <files-path
-            name="my_temp_photos"
+            name="temp_images"
             path="temp" />
         <files-path
-            name="my_attendance_photos"
+            name="attendance_images"
             path="attendance" />
         <files-path
-            name="my_sales_photos"
+            name="sales_images"
             path="sales" />
         <files-path
-            name="my_service_photos"
+            name="service_images"
             path="service" />
+
+        <external-path
+            name="camera_temp_photos"
+            path="Android/data/com.android.watermarkdemo/files/temp" />
+        <external-path
+            name="camera_attendance_photos"
+            path="Android/data/com.android.watermarkdemo/files/attendance" />
+        <external-path
+            name="camera_sales_photos"
+            path="Android/data/com.android.watermarkdemo/files/sales" />
+        <external-path
+            name="camera_service_photos"
+            path="Android/data/com.android.watermarkdemo/files/service" />
     </paths>
 </resources>

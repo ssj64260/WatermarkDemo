@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
+        android:text="广东省佛山市南海区东平路瀚天科技城B2区1-2号2101铺"
         android:background="@drawable/shape_bg_edittext"
         android:imeOptions="actionDone"
         android:inputType="text"

@@ -42,6 +42,9 @@ public class CreateActivity extends BaseActivity {
     private List<String> mPictureList;
     private PictureListAdapter mPictureAdapter;
 
+    private String mTempPath;
+    private String mSavePath;
+
     private View.OnClickListener mClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -69,8 +72,7 @@ public class CreateActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        final String filePath = SDCardUtils.getFilesDir(this) + Constants.PATH_TEMP;
-        final File tempFile = new File(filePath);
+        final File tempFile = new File(mTempPath);
         DataCleanManager.deleteAllFiles(tempFile);
         super.onDestroy();
     }
@@ -90,6 +92,11 @@ public class CreateActivity extends BaseActivity {
     }
 
     private void initData() {
+        mTempPath = SDCardUtils.getExternalFilesDir(this) + Constants.PATH_TEMP;
+        mSavePath = SDCardUtils.getExternalFilesDir(CreateActivity.this) + Constants.PATH_ATTENDANCE;
+        FileUtils.createdirectory(mTempPath);
+        FileUtils.createdirectory(mSavePath);
+
         mPictureList = new ArrayList<>();
         mPictureAdapter = new PictureListAdapter(this, mPictureList);
         mPictureAdapter.setListClick(new OnListClickListener() {
@@ -156,12 +163,11 @@ public class CreateActivity extends BaseActivity {
                     final String time = DateTimeUtils.getEnShortTime();
                     final String datetime = date + "\t" + week + "\t" + time;
 
-                    final String savePath = SDCardUtils.getFilesDir(CreateActivity.this) + Constants.PATH_ATTENDANCE;
 
                     for (String path : mPictureList) {
                         final File file = new File(path);
                         if (file.exists()) {
-                            FileUtils.copyFile(file.getAbsolutePath(), savePath + file.getName());
+                            FileUtils.copyFile(file.getAbsolutePath(), mSavePath + file.getName());
                         }
                     }
 

@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
-        mTempPath = SDCardUtils.getFilesDir(this);
+        mTempPath = SDCardUtils.getExternalFilesDir(this);
         mTempFile = new File(mTempPath);
     }
 

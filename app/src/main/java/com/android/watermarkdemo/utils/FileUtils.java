@@ -18,6 +18,13 @@ import java.io.OutputStream;
  */
 public class FileUtils {
 
+    public static void createdirectory(String path) {
+        final File file = new File(path);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+    }
+
     //获取文件大小
     public static long getFileSize(File f) throws Exception {
         long s = 0;

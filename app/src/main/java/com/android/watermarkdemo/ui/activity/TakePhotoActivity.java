@@ -3,6 +3,7 @@ package com.android.watermarkdemo.ui.activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,9 @@ import com.android.watermarkdemo.utils.ToastMaster;
 import com.android.watermarkdemo.widget.imageloader.ImageLoaderFactory;
 
 import java.io.File;
+
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * 拍照
@@ -56,7 +60,8 @@ public class TakePhotoActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_retake:
-                    onBackPressed();
+                    startActivity(new Intent(TakePhotoActivity.this, TakePhotoActivity.class));
+                    finish();
                     break;
                 case R.id.tv_save:
                     doSavePhoto();
@@ -80,7 +85,7 @@ public class TakePhotoActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST_TAKE_PHOTO == requestCode) {
             if (mTempFile.exists()) {
-                drawWaterMark(true);
+                CompressPicture();
                 return;
             }
         }
@@ -89,7 +94,7 @@ public class TakePhotoActivity extends BaseActivity {
     }
 
     private void initData() {
-        mSavePath = SDCardUtils.getFilesDir(this) + Constants.PATH_TEMP;
+        mSavePath = SDCardUtils.getExternalFilesDir(this) + Constants.PATH_TEMP;
         mTempFile = new File(mSavePath, System.currentTimeMillis() + ".jpg");
 
         final String date = DateTimeUtils.getCnDate();
@@ -112,14 +117,46 @@ public class TakePhotoActivity extends BaseActivity {
     }
 
     private void doTakePhoto() {
-        final Uri uri = FileProvider.getUriForFile(this, "com.android.watermarkdemo.myprovider", mTempFile);
+        final Uri uri;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            uri = Uri.fromFile(mTempFile);
+        } else {
+            uri = FileProvider.getUriForFile(this, getPackageName() + ".myprovider", mTempFile);
+        }
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_TAKE_PHOTO);
             overridePendingTransition(0, 0);
         }
+    }
+
+    private void CompressPicture() {
+        Luban.with(this)
+                .load(mTempFile)
+                .setTargetDir(mTempFile.getParent())
+                .ignoreBy(100)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        showProgress("处理图片中...");
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        mTempFile = file;
+                        drawWaterMark(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastMaster.toast("图片处理失败，请重试");
+                        hideProgress();
+                        finish();
+                    }
+                }).launch();
     }
 
     private void drawWaterMark(final boolean isShowPhoto) {
