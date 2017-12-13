@@ -89,7 +89,7 @@ public class TakePhotoActivity extends BaseActivity {
     }
 
     private void initData() {
-        mSavePath = SDCardUtils.getExternalFilesDir(this) + Constants.PATH_TEMP;
+        mSavePath = SDCardUtils.getFilesDir(this) + Constants.PATH_TEMP;
         mTempFile = new File(mSavePath, System.currentTimeMillis() + ".jpg");
 
         final String date = DateTimeUtils.getCnDate();

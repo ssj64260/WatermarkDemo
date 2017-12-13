@@ -69,7 +69,7 @@ public class CreateActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        final String filePath = SDCardUtils.getExternalFilesDir(this) + Constants.PATH_TEMP;
+        final String filePath = SDCardUtils.getFilesDir(this) + Constants.PATH_TEMP;
         final File tempFile = new File(filePath);
         DataCleanManager.deleteAllFiles(tempFile);
         super.onDestroy();
@@ -156,7 +156,7 @@ public class CreateActivity extends BaseActivity {
                     final String time = DateTimeUtils.getEnShortTime();
                     final String datetime = date + "\t" + week + "\t" + time;
 
-                    final String savePath = SDCardUtils.getExternalFilesDir(CreateActivity.this) + Constants.PATH_ATTENDANCE;
+                    final String savePath = SDCardUtils.getFilesDir(CreateActivity.this) + Constants.PATH_ATTENDANCE;
 
                     for (String path : mPictureList) {
                         final File file = new File(path);
