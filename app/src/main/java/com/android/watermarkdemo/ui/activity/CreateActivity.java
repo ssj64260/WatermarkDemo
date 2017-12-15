@@ -163,7 +163,6 @@ public class CreateActivity extends BaseActivity {
                     final String time = DateTimeUtils.getEnShortTime();
                     final String datetime = date + "\t" + week + "\t" + time;
 
-
                     for (String path : mPictureList) {
                         final File file = new File(path);
                         if (file.exists()) {
