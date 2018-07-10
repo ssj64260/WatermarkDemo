@@ -13,7 +13,7 @@ import com.android.watermarkdemo.model.AttendanceBean;
 import com.android.watermarkdemo.utils.DataCleanManager;
 import com.android.watermarkdemo.utils.FileUtils;
 import com.android.watermarkdemo.utils.SDCardUtils;
-import com.android.watermarkdemo.utils.ThreadPoolUtil;
+import com.android.watermarkdemo.utils.ThreadPoolUtils;
 import com.android.watermarkdemo.utils.ToastMaster;
 
 import java.io.File;
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity {
 
     private void doCleanCache() {
         showProgress("删除中...");
-        ThreadPoolUtil.getInstache().cachedExecute(new Runnable() {
+        ThreadPoolUtils.getInstache().cachedExecute(new Runnable() {
             @Override
             public void run() {
                 DataCleanManager.deleteAllFiles(mTempFile);

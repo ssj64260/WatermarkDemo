@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/iv_picture"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/ll_tools"
+        android:background="@drawable/shape_bg_black"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_datetime"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_time_white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="2017年12月08日 星期三 17:23" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_address_white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="广东省佛山市南海区桂城深海路瀚天科技城A区5号楼1503座" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_tools"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black_alpha_80"
         android:gravity="center">
 
         <TextView
@@ -76,4 +115,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

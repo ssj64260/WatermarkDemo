@@ -27,6 +27,10 @@
     <!--0%  	00-->
 
     <color name="black">#000000</color>
+    <color name="black_alpha_80">#CC000000</color>
+    <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_40">#66000000</color>
+    <color name="black_alpha_30">#4D000000</color>
     <color name="black_alpha_5">#0D000000</color>
     <color name="black_alpha_0">#00000000</color>
     <color name="white">#FFFFFF</color>

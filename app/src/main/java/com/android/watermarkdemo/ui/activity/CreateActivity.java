@@ -21,7 +21,7 @@ import com.android.watermarkdemo.utils.DataCleanManager;
 import com.android.watermarkdemo.utils.DateTimeUtils;
 import com.android.watermarkdemo.utils.FileUtils;
 import com.android.watermarkdemo.utils.SDCardUtils;
-import com.android.watermarkdemo.utils.ThreadPoolUtil;
+import com.android.watermarkdemo.utils.ThreadPoolUtils;
 import com.android.watermarkdemo.utils.ToastMaster;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,8 +32,6 @@ import java.util.List;
 
 
 public class CreateActivity extends BaseActivity {
-
-    private static final int REQUEST_CODE_TAKE_PHOTO = 1000;//拍照
 
     private EditText etAddress;
     private RecyclerView rvPictureList;
@@ -78,16 +76,12 @@ public class CreateActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (REQUEST_CODE_TAKE_PHOTO == requestCode) {
-            if (RESULT_OK == resultCode && data != null) {
-                final String filePath = data.getStringExtra(TakePhotoActivity.RETURN_FILE_PATH);
-                if (!TextUtils.isEmpty(filePath)) {
-                    mPictureList.add(filePath);
-                    mPictureAdapter.notifyDataSetChanged();
-                }
-            }
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        final String filePath = intent.getStringExtra(CompressPhotoActivity.RETURN_FILE_PATH);
+        if (!TextUtils.isEmpty(filePath)) {
+            mPictureList.add(filePath);
+            mPictureAdapter.notifyDataSetChanged();
         }
     }
 
@@ -108,9 +102,9 @@ public class CreateActivity extends BaseActivity {
                     final String address = etAddress.getText().toString();
                     if (!TextUtils.isEmpty(address)) {
                         Intent intent = new Intent();
-                        intent.setClass(CreateActivity.this, TakePhotoActivity.class);
-                        intent.putExtra(TakePhotoActivity.KEY_LOCATION_ADDRESS, address);
-                        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+                        intent.setClass(CreateActivity.this, CameraActivity.class);
+                        intent.putExtra(CameraActivity.KEY_ADDRESS, address);
+                        startActivity(intent);
                     } else {
                         ToastMaster.toast("请先输入当前地址");
                     }
@@ -155,7 +149,7 @@ public class CreateActivity extends BaseActivity {
         } else {
             showProgress("提交中...");
 
-            ThreadPoolUtil.getInstache().cachedExecute(new Runnable() {
+            ThreadPoolUtils.getInstache().cachedExecute(new Runnable() {
                 @Override
                 public void run() {
                     final String date = DateTimeUtils.getCnDate();

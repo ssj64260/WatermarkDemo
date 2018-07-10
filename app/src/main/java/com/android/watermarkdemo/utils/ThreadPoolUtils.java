@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit;
  * 线程池工具类
  */
 
-public class ThreadPoolUtil {
+public class ThreadPoolUtils {
 
     private static int maxThread = 5;
 
-    private static ThreadPoolUtil instance;
+    private static ThreadPoolUtils instance;
 
     //newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。
     private ExecutorService cachedThreadPool = null;
@@ -24,15 +24,15 @@ public class ThreadPoolUtil {
     //newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)
     private ExecutorService singleThreadExecutor = null;
 
-    private ThreadPoolUtil() {
+    private ThreadPoolUtils() {
 
     }
 
-    public static ThreadPoolUtil getInstache() {
+    public static ThreadPoolUtils getInstache() {
         if (instance == null) {
-            synchronized (ThreadPoolUtil.class) {
+            synchronized (ThreadPoolUtils.class) {
                 if (instance == null) {
-                    instance = new ThreadPoolUtil();
+                    instance = new ThreadPoolUtils();
                 }
             }
         }
@@ -41,7 +41,7 @@ public class ThreadPoolUtil {
 
     //设置最大线程数（建议在application里设置）
     public static void init(int maxThread) {
-        ThreadPoolUtil.maxThread = maxThread;
+        ThreadPoolUtils.maxThread = maxThread;
     }
 
     //缓存线程池
@@ -133,7 +133,7 @@ public class ThreadPoolUtil {
      * @param executorService 需要终止的线程池类型
      * @param awaitTime 线程总执行时间，超时则终止（传入0则立刻终止）
      */
-    private void setShutDown(ExecutorService executorService, long awaitTime) {
+    public void setShutDown(ExecutorService executorService, long awaitTime) {
         if (executorService != null) {
             try {
                 executorService.shutdown();

@@ -8,10 +8,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.media.Image;
+import android.media.ImageReader;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * 图片旋转处理工具类
@@ -47,21 +50,22 @@ public class ImageUtils {
                 final int bitmapWidth = newBitmap.getWidth();
                 final int bitmapHeight = newBitmap.getHeight();
                 final int backgroundHeight = (int) (Math.min(bitmapWidth, bitmapHeight) * 0.15f);
+                final int backgroundTop = bitmapHeight - backgroundHeight;
 
                 final Canvas canvas = new Canvas(newBitmap);
                 final Paint paint = new Paint();
-                paint.setColor(0x66000000);
+                paint.setColor(0x4D000000);
                 paint.setStyle(Paint.Style.FILL);
 
                 final Rect backgroundRect = new Rect(0, bitmapHeight - backgroundHeight, bitmapWidth, bitmapHeight);
                 canvas.drawRect(backgroundRect, paint);
 
-                final float iconTextSize = backgroundHeight / 4f;
+                final float iconTextSize = backgroundHeight / 5f;
                 final float iconLeft = iconTextSize / 2f;
                 final float iconRight = iconLeft + iconTextSize;
-                final float timeIconTop = backgroundRect.top + iconTextSize / 4f;
+                final float timeIconTop = backgroundTop + iconTextSize;
                 final float timeIconBottom = timeIconTop + iconTextSize;
-                final float addressIconTop = timeIconBottom + iconTextSize / 2f;
+                final float addressIconTop = timeIconBottom + iconTextSize;
                 final float addressIconBottom = addressIconTop + iconTextSize;
 
                 timeDrawable.setBounds((int) iconLeft, (int) timeIconTop, (int) iconRight, (int) timeIconBottom);
@@ -148,10 +152,6 @@ public class ImageUtils {
 
             file = new File(path, bitName);
 
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
-
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, out);
             out.flush();
@@ -160,5 +160,30 @@ public class ImageUtils {
             e.printStackTrace();
         }
         return file;
+    }
+
+    public static void saveToJpg(ImageReader reader, File toFile) {
+        Image image = reader.acquireNextImage();
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+        byte[] bytes = new byte[buffer.remaining()];
+        buffer.get(bytes);
+
+        FileOutputStream output = null;
+        try {
+            output = new FileOutputStream(toFile);
+            output.write(bytes);
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            image.close();
+            try {
+                if (output != null) {
+                    output.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
